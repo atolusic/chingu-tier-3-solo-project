@@ -9,7 +9,7 @@ import Search from './components/Search'
 import './App.css'
 
 function App () {
-  const [state, setState] = useState({meteoriteStrikes: null, offset: 0})
+  const [state, setState] = useState({meteoriteStrikes: null, offset: 0, loading: false})
   const [cache, setCache] = useState(null)
   const [errorMsg, setErrorMsg] = useState('')
   
@@ -25,8 +25,9 @@ function App () {
     const windowBottom = windowHeight + window.pageYOffset
     if (windowBottom >= docHeight) {
       offset += 50
+      setState(s => ({...s, loading: true}))
       const result = await fetchFromNasa(`$limit=50&$offset=${offset}`)
-      return setState(s => ({meteoriteStrikes: s.meteoriteStrikes.concat(result)}))
+      return setState(s => ({...s, meteoriteStrikes: s.meteoriteStrikes.concat(result), loading: false}))
     }
   }
 
@@ -83,6 +84,7 @@ function App () {
       <Navbar title='Meteorite Explorer' />
       <Search handleSearch={handleSearch} />
       {renderMeteoriteLandings}
+      {state.loading && <Spinner />}
     </div>
   )
 }
