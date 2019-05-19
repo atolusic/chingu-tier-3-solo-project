@@ -1,0 +1,15 @@
+.metoriteLandings {
+  width: 80%;
+  text-align: center;
+  border: none;
+  margin-bottom: 1rem;
+}
+
+.tableRow th {
+  padding: 0.6rem;
+  color: #4F463E;
+}
+
+.orangeBg {
+  background-color: #FFB664;
+}

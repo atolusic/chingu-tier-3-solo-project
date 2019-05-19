@@ -1,0 +1,30 @@
+.searchForm {
+  margin-bottom: 1rem;
+  background-color: #fff;
+  padding: 0.5rem 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.searchInput {
+  border: none;
+  border-bottom: 1px solid #CBCACB;
+  padding: .5em 0;
+  font-size: .8rem;
+}
+
+.searchButton {
+  background-color: #7987CB;
+  color: #121520;
+  box-shadow: 0 4px 2px -2px gray;
+  border-radius: 3px;
+  border: none;
+  padding:.5rem .7rem;
+  margin-left: 1rem;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: .8rem
+}

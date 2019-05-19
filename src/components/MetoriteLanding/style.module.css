@@ -1,0 +1,14 @@
+.tableRow td {
+  padding: 0.6rem;
+  border-top: 1px solid #E5E4E5;
+  font-size: .9rem;
+  color: #696969;
+}
+
+.tableRow:nth-child(even) {
+  background-color: #FFFFFF;
+}
+
+.tableRow:nth-child(odd) {
+  background-color: #FAFAFA;
+}

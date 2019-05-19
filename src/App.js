@@ -1,26 +1,90 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react'
 
-function App() {
+import Navbar from './components/Navbar'
+import MetoriteLandings from './components/MetoriteLandings'
+import Spinner from './components/Spinner'
+import ErrorMessage from './components/ErrorMessage'
+import Search from './components/Search'
+
+import './App.css'
+
+function App () {
+  const [state, setState] = useState({meteoriteStrikes: null, offset: 0})
+  const [cache, setCache] = useState(null)
+  const [errorMsg, setErrorMsg] = useState('')
+  
+  const url = 'https://data.nasa.gov/resource/gh4g-9sfh.json'
+  let renderMeteoriteLandings
+  let offset = 0
+
+  const handleScroll = async () => {
+    const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight
+    const body = document.body
+    const html = document.documentElement
+    const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)
+    const windowBottom = windowHeight + window.pageYOffset
+    if (windowBottom >= docHeight) {
+      offset += 50
+      const result = await fetchFromNasa(`$limit=50&$offset=${offset}`)
+      return setState(s => ({meteoriteStrikes: s.meteoriteStrikes.concat(result)}))
+    }
+  }
+
+  async function fetchFromNasa (params) {
+    const result = await fetch(`${url}?${params}`)
+    .then(res => res.json())
+    return result
+  }
+
+  async function handleSearch (term) {
+    const query = `query=SELECT * WHERE LOWER(name) = LOWER('${term}')`
+    const result = await fetchFromNasa(`$${query}`)
+ 
+    if (!result.error) {
+      let newState
+      if (!term && !result.length) newState = cache
+      else newState = result
+
+      return setState(s => ({...s, meteoriteStrikes: newState}))
+    } 
+
+    return setErrorMsg(result.message)
+  }
+
+  
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll)
+
+    async function init () {
+      const result = await fetchFromNasa(`$limit=50`)
+      
+      if (result.error) return setErrorMsg(result.message)
+      setCache(result)
+      return setState(s => ({...s, meteoriteStrikes: result}))
+    }
+
+    init()
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
+  if (state.meteoriteStrikes) {
+    renderMeteoriteLandings = <MetoriteLandings meteoriteLandings={state.meteoriteStrikes} />
+  } else if (errorMsg) {
+    renderMeteoriteLandings = <ErrorMessage msg={errorMsg} />
+  } else {
+    renderMeteoriteLandings = <Spinner />
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Navbar title='Meteorite Explorer' />
+      <Search handleSearch={handleSearch} />
+      {renderMeteoriteLandings}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
