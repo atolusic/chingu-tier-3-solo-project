@@ -40,16 +40,22 @@ function App () {
   async function handleSearch (term) {
     const query = `query=SELECT * WHERE LOWER(name) = LOWER('${term}')`
     const result = await fetchFromNasa(`$${query}`)
+    const errorMsg = 'Oh! Unfortunately, no results were found.'
  
     if (!result.error) {
       let newState
-      if (!term && !result.length) newState = cache
-      else newState = result
+      if (!term && !result.length) {
+        newState = cache
+      } else {
+        if (!result.length) return setErrorMsg(errorMsg)
+        newState = result
+      }   
 
+      setErrorMsg('')
       return setState(s => ({...s, meteoriteStrikes: newState}))
-    } 
+    }
 
-    return setErrorMsg(result.message)
+    return setErrorMsg(errorMsg)
   }
 
   
@@ -71,10 +77,10 @@ function App () {
     }
   }, [])
 
-  if (state.meteoriteStrikes) {
+  if (errorMsg) {
+    renderMeteoriteLandings = <ErrorMessage errorMsg={errorMsg} />
+  } else if (state.meteoriteStrikes) {
     renderMeteoriteLandings = <MetoriteLandings meteoriteLandings={state.meteoriteStrikes} />
-  } else if (errorMsg) {
-    renderMeteoriteLandings = <ErrorMessage msg={errorMsg} />
   } else {
     renderMeteoriteLandings = <Spinner />
   }

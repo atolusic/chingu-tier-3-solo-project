@@ -2,9 +2,9 @@ import React from 'react'
 
 // import styles from './style.module.css'
 
-function ErrorMessage () {
+function ErrorMessage ({errorMsg}) {
   return (
-    <div>Error</div>
+    <div>{errorMsg}</div>
   )
 }
 
