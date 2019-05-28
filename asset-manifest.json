@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/chingu-tier-3-solo-project/static/css/main.129c915f.chunk.css",
-    "main.js": "/chingu-tier-3-solo-project/static/js/main.d570c627.chunk.js",
-    "main.js.map": "/chingu-tier-3-solo-project/static/js/main.d570c627.chunk.js.map",
+    "main.js": "/chingu-tier-3-solo-project/static/js/main.1770c7e4.chunk.js",
+    "main.js.map": "/chingu-tier-3-solo-project/static/js/main.1770c7e4.chunk.js.map",
     "runtime~main.js": "/chingu-tier-3-solo-project/static/js/runtime~main.b2d6ff68.js",
     "runtime~main.js.map": "/chingu-tier-3-solo-project/static/js/runtime~main.b2d6ff68.js.map",
     "static/js/2.860dbf6c.chunk.js": "/chingu-tier-3-solo-project/static/js/2.860dbf6c.chunk.js",
     "static/js/2.860dbf6c.chunk.js.map": "/chingu-tier-3-solo-project/static/js/2.860dbf6c.chunk.js.map",
     "index.html": "/chingu-tier-3-solo-project/index.html",
-    "precache-manifest.ef173cd6d192eafb56ac9b5677a71d52.js": "/chingu-tier-3-solo-project/precache-manifest.ef173cd6d192eafb56ac9b5677a71d52.js",
+    "precache-manifest.a16532e67d9bf82a413898e2a5ff030b.js": "/chingu-tier-3-solo-project/precache-manifest.a16532e67d9bf82a413898e2a5ff030b.js",
     "service-worker.js": "/chingu-tier-3-solo-project/service-worker.js",
     "static/css/main.129c915f.chunk.css.map": "/chingu-tier-3-solo-project/static/css/main.129c915f.chunk.css.map"
   }
